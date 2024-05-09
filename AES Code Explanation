@@ -1,0 +1,47 @@
+
+
+1. `from Crypto.Cipher import AES`: This line imports the AES (Advanced Encryption Standard) module from the `Crypto.Cipher` package. AES is a symmetric encryption algorithm commonly used for securing sensitive data.
+
+2. `from secrets import token_bytes`: This imports the `token_bytes` function from the `secrets` module. `token_bytes` generates cryptographically strong random bytes suitable for managing cryptographic tokens.
+
+3. `key = token_bytes(16)`: This line generates a random key of 16 bytes (128 bits) using the `token_bytes` function. This key will be used for encryption and decryption.
+
+4. `def encrypt(msg):`: This defines a function named `encrypt` that takes a message (`msg`) as input and returns the nonce, ciphertext, and tag.
+
+5. `cipher = AES.new(key, AES.MODE_EAX)`: This line initializes an AES cipher object (`cipher`) with the provided key and using the EAX mode of operation. EAX is an authenticated encryption mode, which provides both confidentiality and integrity.
+
+6. `nonce = cipher.nonce`: This retrieves the nonce (number used once) from the cipher object.
+
+7. `ciphertext, tag = cipher.encrypt_and_digest(msg.encode('ascii'))`: This line encrypts the input message after encoding it into ASCII bytes. It returns both the ciphertext and the authentication tag.
+
+8. `return nonce, ciphertext, tag`: This returns the nonce, ciphertext, and tag as the result of the encryption process.
+
+9. `def decrypt(nonce, ciphertext, tag):`: This defines a function named `decrypt` that takes the nonce, ciphertext, and tag as input and returns the decrypted plaintext if the message is successfully authenticated; otherwise, it returns `False`.
+
+10. `cipher = AES.new(key, AES.MODE_EAX, nonce=nonce)`: This line initializes an AES cipher object (`cipher`) for decryption, using the provided key, nonce, and EAX mode.
+
+11. `plaintext = cipher.decrypt(ciphertext)`: This line decrypts the ciphertext using the cipher object and retrieves the plaintext.
+
+12. `try:`: This begins a try-except block to handle exceptions during tag verification.
+
+13. `cipher.verify(tag)`: This line verifies the authenticity of the ciphertext using the provided tag. If the tag verification fails (indicating potential tampering with the ciphertext), it raises an exception.
+
+14. `return plaintext.decode('ascii')`: This returns the decrypted plaintext after decoding it from ASCII bytes to a string.
+
+15. `except:`: This block catches any exceptions that occur during tag verification.
+
+16. `return False`: If the tag verification fails, indicating potential tampering, this returns `False`.
+
+17. `nonce, ciphertext, tag = encrypt(input('Enter Message: '))`: This line prompts the user to input a message, encrypts it using the `encrypt` function, and retrieves the nonce, ciphertext, and tag.
+
+18. `plaintext = decrypt(nonce, ciphertext, tag)`: This line attempts to decrypt the ciphertext using the `decrypt` function.
+
+19. `print(f'Cipher Text: {ciphertext}')`: This line prints the ciphertext.
+
+20. `if not plaintext:`: This checks if the plaintext is `False`, indicating that the message was corrupted or tampered with during transmission.
+
+21. `print('Message corrupted')`: If the plaintext is `False`, this prints a message indicating that the message was corrupted.
+
+22. `else:`: If the plaintext is not `False`, this block executes.
+
+23. `print(f'Plain text: {plaintext}')`: This line prints the decrypted plaintext.
