@@ -1,0 +1,39 @@
+
+
+1. `import math`: This imports the `math` module, which provides mathematical functions and constants.
+
+2. `key = input('Enter KEY')`: This line prompts the user to enter a key, which will be used for encryption and decryption.
+
+3. `def encryptMessage(msg):`: This defines a function named `encryptMessage` which takes a message (`msg`) as input and returns the encrypted message.
+
+4. `cipher = ""`: This initializes an empty string `cipher` to store the encrypted message.
+
+5. `k_indx = 0`: This initializes a variable `k_indx` to keep track of the current index in the key.
+
+6. `msg_len = float(len(msg))`: This calculates the length of the message and converts it to a float.
+
+7. `msg_lst = list(msg)`: This converts the message into a list of characters.
+
+8. `key_lst = sorted(list(key))`: This converts the key into a sorted list of characters.
+
+9. `col = len(key)`: This calculates the number of columns in the encryption matrix, which is equal to the length of the key.
+
+10. `row = int(math.ceil(msg_len / col))`: This calculates the number of rows in the encryption matrix based on the length of the message and the number of columns.
+
+11. `fill_null = int((row * col) - msg_len)`: This calculates the number of null characters that need to be added to the message to make its length a multiple of the number of columns.
+
+12. `msg_lst.extend('_' * fill_null)`: This adds null characters (`_`) to the end of the message list to make its length a multiple of the number of columns.
+
+13. `matrix = [msg_lst[i: i + col] for i in range(0, len(msg_lst), col)]`: This creates a matrix from the message list, with each row containing `col` characters.
+
+14. `for _ in range(col):`: This loop iterates over the columns in the encryption matrix.
+
+15. `curr_idx = key.index(key_lst[k_indx])`: This retrieves the index of the current character in the key from the sorted list of key characters.
+
+16. `cipher += ''.join([row[curr_idx] for row in matrix])`: This retrieves the characters from the matrix corresponding to the current key character and concatenates them to the `cipher` string.
+
+17. `k_indx += 1`: This increments the index of the key to move to the next character.
+
+18. `return cipher`: This returns the encrypted message.
+
+The `decryptMessage` function follows a similar logic but reverses the encryption process to decrypt the message.
