@@ -1,8 +1,29 @@
-This Python script is an implementation of the RSA encryption and decryption algorithm. Here's a breakdown of each part:
+   This Python script is an implementation of the RSA encryption and decryption algorithm. Here's a breakdown of each part:
 
 1. `import random`: This line imports the `random` module, which is used for generating random numbers.
 
 2. `prime = set()`: This creates an empty set `prime` which will store prime numbers.
+This part of the code is implementing the Sieve of Eratosthenes algorithm to generate prime numbers up to 250. Here's a breakdown of each step:
+
+   1. `seive = [True] * 250`: This line initializes a list called `seive` with 250 elements, all set to `True`. The Sieve of Eratosthenes algorithm uses a boolean list to mark numbers as prime or composite.
+
+   2. `seive[0] = False` and `seive[1] = False`: Since 0 and 1 are not prime numbers, they are marked as `False` in the sieve list.
+
+   3. `for i in range(2, 250):`: This loop iterates over numbers starting from 2 up to 249. We start from 2 because 0 and 1 are not considered prime.
+
+   4. `for j in range(i * 2, 250, i):`: This inner loop iterates over multiples of the current number `i`, starting from `i * 2` up to 249, with a step size of `i`.
+
+   5. `seive[j] = False`: Inside the inner loop, each multiple of `i` is marked as `False` in the sieve list, indicating that it is not a prime number.
+
+   6. After both loops, all non-prime numbers in the range 2 to 249 have been marked as `False` in the sieve list, while prime numbers remain marked as `True`.
+
+   7. `for i in range(len(seive)):`: This loop iterates over the indices of the sieve list.
+
+   8. `if seive[i]:`: If the value at index `i` in the sieve list is `True`, it means that `i` is a prime number.
+
+   9. `prime.add(i)`: The prime number `i` is added to the set `prime`. Sets are used here to avoid duplicate entries, ensuring each prime number is stored only once.
+
+      By the end of this process, the set `prime` contains all prime numbers up to 249, generated using the Sieve of Eratosthenes algorithm. These prime numbers will be used in the RSA encryption process.
 
 3. `public_key = None`, `private_key = None`, `n = None`: These variables are initialized to `None` and will store the public key, private key, and the product of two prime numbers respectively.
 
